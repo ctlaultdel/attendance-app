@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ClassInfo from "./components/ClassInfo";
 import StudentList from "./components/StudentList";
 import studentDataSet from "./data/studentData";
 
@@ -22,9 +23,18 @@ function App() {
     setStudentData(students);
   };
 
+  // Function to delete studentData
+  const deleteAllStudentData = () => {
+    setStudentData([]);
+  };
+
   return (
     <main>
       <h1>Attendance</h1>
+      <ClassInfo
+        memberCount={studentData.length}
+        deleteStudents={deleteAllStudentData}
+      ></ClassInfo>
       <StudentList
         students={studentData}
         // make updateStudentData function available for other components to use
