@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ClassInfo from "./components/ClassInfo";
 import StudentList from "./components/StudentList";
+import NewStudentForm from "./components/NewStudentForm";
 import studentDataSet from "./data/studentData";
 
 // container component:
@@ -28,6 +29,22 @@ function App() {
     setStudentData([]);
   };
 
+  // Function to add new student data
+  const addStudentData = (newStudent) => {
+    // duplicate student list
+    const newStudentList = [...studentData];
+    // generate next valid student id
+    const nextId = Math.max(...newStudentList.map((student) => student.id)) + 1;
+
+    newStudentList.push({
+      id: nextId,
+      nameData: newStudent.nameData,
+      emailData: newStudent.emailData,
+      isPresentData: false,
+    });
+    setStudentData(newStudentList);
+  };
+
   return (
     <main>
       <h1>Attendance</h1>
@@ -40,6 +57,7 @@ function App() {
         // make updateStudentData function available for other components to use
         onUpdateStudent={updateStudentData}
       ></StudentList>
+      <NewStudentForm addStudentCallback={addStudentData}></NewStudentForm>
     </main>
   );
 }
